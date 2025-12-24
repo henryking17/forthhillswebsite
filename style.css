@@ -10,6 +10,22 @@ section { padding: 40px; text-align: center; }
 .btn:hover { background-color: #4b0082; color: #ffd700; }
 footer { background-color: #4b0082; color: #ffd700; text-align: center; padding: 15px; margin-top: 40px; }
 
+.hamburger {
+    display: none;
+    background: none;
+    border: none;
+    color: white;
+    font-size: 1.5rem;
+    cursor: pointer;
+    padding: 0.5rem;
+    margin-left: 1rem;
+}
+
+.hamburger:hover {
+    color: #ff6b6b;
+}
+
+
 .btn {
       animation: fadeInOut 3s forwards;
     }
