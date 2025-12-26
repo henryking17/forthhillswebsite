@@ -14,6 +14,27 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     });
 });
 
+
+// Dynamic text update
+const overlays = document.querySelectorAll(".overlay-text");
+ overlays.forEach((overlay, index) => { overlay.innerText = "Forthhills Activities " + (index + 1); });
+
+ // Update text video dynamically
+  setTimeout(() => { document.getElementById("vidText").innerText = "Dance club"; }, 5000);
+
+
+//video playback control
+ const video = document.getElementById("myVideo");
+
+  function playVideo() {
+    video.play();
+  }
+
+  function pauseVideo() {
+    video.pause();
+  }
+
+
 // Hamburger menu toggle
 const hamburger = document.getElementById('hamburger');
 const navUl = document.querySelector('nav ul');
