@@ -16,11 +16,12 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
 
 
 // Dynamic text update
-const overlays = document.querySelectorAll(".overlay-text");
- overlays.forEach((overlay, index) => { overlay.innerText = "Forthhills Activities " + (index + 1); });
+const overlay = document.querySelectorAll(".overlay-text");
+ overlay.forEach((overlay, index) => { overlay.innerText = "Forthhills Activities " + (index + 1); });
+
 
  // Update text video dynamically
-  setTimeout(() => { document.getElementById("vidText").innerText = "Dance club"; }, 5000);
+  setTimeout(() => { document.getElementById("vidText").innerText = "FORTHHILLS DANCE CLUB"; }, 5000);
 
 
 //video playback control
