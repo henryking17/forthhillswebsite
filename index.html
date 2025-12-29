@@ -50,24 +50,24 @@
    
     <div class="gallery">
       <img src="treachers.jpg" alt="In the field of play"> 
-      <div class="overlay-text" id="imgText">teachers</div>
+      <div class="overlay-texts" id="imgText"><B>FORTHHILLS TEACHERS</B></div>
       </div>
 
       <div class="gallery">
       <img src="excorsion.jpg" height="200" alt="School Excursion">
-      <div class="overlay-text" id="imgText">excursion</div>
+      <div class="overlay-texts" id="imgText"><B>CHRISTMAS OUTING</B></div>
       </div>
 
 
        <div class="gallery">
       <img src="kidsplay.jpg" alt="Sports activities">
-      <div class="overlay-text" id="imgText">excursion</div>
+      <div class="overlay-texts" id="imgText"><b>PLAYGROUND EXCITEMENT</b></div>
       </div>
 
 
       <div class="gallery">
       <img src="craft.jpg" alt="Art exhibition">
-      <div class="overlay-text" id="imgText">excursion</div>
+      <div class="overlay-texts" id="imgText"><b>ART AND CRAFT</b></div>
       </div>
 
      
@@ -77,7 +77,7 @@
   <source src="forthhills.mp4" type="video/mp4">
   Your browser does not support HTML video.
 </video>
-<div class="overlay-text" id="vidText">Overlay on Video</div> 
+<div class="overlay-texts" id="vidTexts"><b>FORTHHILLS DANCE CLUB</b></div> 
 </div>
 
   </section>
@@ -105,7 +105,38 @@
   <section id="contact">
     <h2>Contact Us</h2>
     <p>Email: forthhills@.gmail.com | Phone: +234-705-258-8704 or +234-803-441-6572</p>
-  </section>
+  </section><br><br>
+
+    <div class="contact-form">
+                    <h3>Send us a Message</h3>
+                     <form action="https://api.web3forms.com/submit" method="POST">
+                           <input type="hidden" name="access_key" value="22b0c187-7f5e-48e5-91cf-d3481d9cd44f">
+                    <form id="contact-form">
+                        <div class="form-group">
+                            <input type="text" id="name" name="name" placeholder="Your Full Name" required>
+                        </div>
+                        <div class="form-group">
+                            <input type="email" id="email" name="email" placeholder="Your Email Address" required>
+                        </div>
+                        <div class="form-group">
+                            <input type="tel" id="phone" name="phone" placeholder="+234xxxxxxxxxx" required>
+                        </div>
+                        <div class="form-group">
+                            <input type="text" id="subject" name="subject" placeholder="Subject" required>
+                        </div>
+                        <div class="form-group">
+                            <textarea id="message" name="message" placeholder="Your Message" rows="5" required></textarea>
+                        </div>
+                        
+                        
+                        <div id="form-status"></div>
+                        <button type="submit" id="submit-btn">Send Message</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
 
   <footer>
     <p>&copy; 2025 Forthhills School. All Rights Reserved.</p>

@@ -16,11 +16,12 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
 
 
 // Dynamic text update
-const overlays = document.querySelectorAll(".overlay-text");
- overlays.forEach((overlay, index) => { overlay.innerText = "Forthhills Activities " + (index + 1); });
+const overlay = document.querySelectorAll(".overlay-text");
+ overlay.forEach((overlay, index) => { overlay.innerText = "Forthhills Activities " + (index + 1); });
+
 
  // Update text video dynamically
-  setTimeout(() => { document.getElementById("vidText").innerText = "Dance club"; }, 5000);
+  setTimeout(() => { document.getElementById("vidText").innerText = "FORTHHILLS DANCE CLUB"; }, 5000);
 
 
 //video playback control
@@ -70,6 +71,96 @@ if (hamburger && navUl) {
         }
       });
     }
+// Enhanced contact form validation and submission
+const contactForm = document.getElementById('contact-form');
+const submitBtn = document.getElementById('submit-btn');
+const formStatus = document.getElementById('form-status');
+
+if (contactForm) {
+    contactForm.addEventListener('submit', function(e) {
+        e.preventDefault();
+        
+        // Get form values
+        const name = document.getElementById('name').value.trim();
+        const email = document.getElementById('email').value.trim();
+        const phone = document.getElementById('phone').value.trim();
+        const subject = document.getElementById('subject').value.trim();
+        const message = document.getElementById('message').value.trim();
+        
+        // Validation
+        if (!name || !email || !subject || !message) {
+            showFormStatus('Please fill in all required fields.', 'error');
+            return;
+        }
+        
+        if (!isValidEmail(email)) {
+            showFormStatus('Please enter a valid email address.', 'error');
+            return;
+        }
+        
+        if (phone && !isValidPhone(phone)) {
+            showFormStatus('Please enter a valid phone number.', 'error');
+            return;
+        }
+        
+        // Show loading state
+        submitBtn.disabled = true;
+        submitBtn.textContent = 'Sending...';
+        
+        // Simulate form submission (in a real website, this would send to a server)
+        setTimeout(() => {
+            // Store in localStorage for demo purposes
+            const contactData = {
+                name,
+                email,
+                phone,
+                subject,
+                message,
+                timestamp: new Date().toISOString()
+            };
+            
+            let contacts = JSON.parse(localStorage.getItem('contacts')) || [];
+            contacts.push(contactData);
+            localStorage.setItem('contacts', JSON.stringify(contacts));
+            
+            // Reset form
+            contactForm.reset();
+            
+            // Show success message
+            showFormStatus('Thank you for your message! We will get back to you within 24 hours.', 'success');
+            
+            // Reset button
+            submitBtn.disabled = false;
+            submitBtn.textContent = 'Send Message';
+            
+            console.log('Contact form submitted:', contactData);
+        }, 2000); // Simulate 2 second delay
+    });
+}
+
+function isValidEmail(email) {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
+}
+
+function isValidPhone(phone) {
+    const phoneRegex = /^[\+]?[1-9][\d]{0,15}$/;
+    return phoneRegex.test(phone.replace(/[\s\-\(\)]/g, ''));
+}
+
+function showFormStatus(message, type) {
+    formStatus.textContent = message;
+    formStatus.className = type;
+    formStatus.style.display = 'block';
+    
+    // Hide after 5 seconds
+    setTimeout(() => {
+        formStatus.style.display = 'none';
+    }, 5000);
+}
+
+
+
 
     window.addEventListener("scroll", revealOnScroll);
     revealOnScroll(); // initial check
