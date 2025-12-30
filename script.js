@@ -9,8 +9,8 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
                 block: 'start'
             });
         }
-        // Close mobile menu after clicking
-        navUl.classList.remove('show');
+        // Close mobile menu after clicking (only when a nav <ul> exists)
+        if (navUl) navUl.classList.remove('show');
     });
 });
 
@@ -107,34 +107,48 @@ if (contactForm) {
         submitBtn.disabled = true;
         submitBtn.textContent = 'Sending...';
         
-        // Simulate form submission (in a real website, this would send to a server)
-        setTimeout(() => {
-            // Store in localStorage for demo purposes
-            const contactData = {
-                name,
-                email,
-                phone,
-                subject,
-                message,
-                timestamp: new Date().toISOString()
-            };
-            
+        // Prepare local fallback data
+        const contactData = {
+            name,
+            email,
+            phone,
+            subject,
+            message,
+            timestamp: new Date().toISOString()
+        };
+
+        // Attempt to submit to the configured action (Web3Forms)
+        fetch(contactForm.action, {
+            method: 'POST',
+            body: new FormData(contactForm)
+        })
+        .then(response => response.json())
+        .then(data => {
+            const success = data && (data.success === true || data.success === 'true' || (data.message && /success/i.test(data.message)));
+            if (success) {
+                contactForm.reset();
+                showFormStatus('Thank you for your message! We will get back to you within 24 hours.', 'success');
+                console.log('Contact form submitted (web3forms):', data);
+            } else {
+                // fallback: store locally and inform user
+                let contacts = JSON.parse(localStorage.getItem('contacts')) || [];
+                contacts.push(contactData);
+                localStorage.setItem('contacts', JSON.stringify(contacts));
+                showFormStatus('Submission failed — your message was saved locally. Please try again.', 'error');
+                console.error('Web3Forms responded with an error:', data);
+            }
+        })
+        .catch(error => {
+            console.error('Form submission error:', error);
             let contacts = JSON.parse(localStorage.getItem('contacts')) || [];
             contacts.push(contactData);
             localStorage.setItem('contacts', JSON.stringify(contacts));
-            
-            // Reset form
-            contactForm.reset();
-            
-            // Show success message
-            showFormStatus('Thank you for your message! We will get back to you within 24 hours.', 'success');
-            
-            // Reset button
+            showFormStatus('Network error — your message was saved locally. Please try again later.', 'error');
+        })
+        .finally(() => {
             submitBtn.disabled = false;
             submitBtn.textContent = 'Send Message';
-            
-            console.log('Contact form submitted:', contactData);
-        }, 2000); // Simulate 2 second delay
+        });
     });
 }
 
@@ -153,10 +167,45 @@ function showFormStatus(message, type) {
     formStatus.className = type;
     formStatus.style.display = 'block';
     
+    if (type === 'success') {
+        // little pop animation and highlight the form briefly
+        formStatus.classList.add('animate');
+        contactForm.classList.add('success');
+        setTimeout(() => {
+            formStatus.classList.remove('animate');
+            contactForm.classList.remove('success');
+        }, 1200);
+    }
+
     // Hide after 5 seconds
     setTimeout(() => {
         formStatus.style.display = 'none';
     }, 5000);
+}
+
+// Phone input formatting (simple, non-destructive)
+function formatPhoneInput(value) {
+    const hasPlus = value.trim().startsWith('+') ? '+' : '';
+    const digits = value.replace(/\D/g, '');
+    if (!digits) return hasPlus;
+    const groups = [];
+    for (let i = 0; i < digits.length; i += 3) {
+        groups.push(digits.substr(i, 3));
+    }
+    return hasPlus + groups.join(' ');
+}
+
+const phoneInput = document.getElementById('phone');
+if (phoneInput) {
+    phoneInput.addEventListener('input', function(e) {
+        const formatted = formatPhoneInput(this.value);
+        this.value = formatted;
+        // keep caret at the end for simplicity
+        this.setSelectionRange(this.value.length, this.value.length);
+    });
+    phoneInput.addEventListener('blur', function() {
+        this.value = formatPhoneInput(this.value);
+    });
 }
 
 

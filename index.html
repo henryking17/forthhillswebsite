@@ -107,30 +107,35 @@
     <p>Email: forthhills@.gmail.com | Phone: +234-705-258-8704 or +234-803-441-6572</p>
   </section><br><br>
 
-    <div class="contact-form">
+    <div class="contact-form contact-card">
                     <h3>Send us a Message</h3>
-                     <form action="https://api.web3forms.com/submit" method="POST">
+                     <form id="contact-form" action="https://api.web3forms.com/submit" method="POST" novalidate>
                            <input type="hidden" name="access_key" value="22b0c187-7f5e-48e5-91cf-d3481d9cd44f">
-                    <form id="contact-form">
-                        <div class="form-group">
-                            <input type="text" id="name" name="name" placeholder="Your Full Name" required>
-                        </div>
-                        <div class="form-group">
-                            <input type="email" id="email" name="email" placeholder="Your Email Address" required>
-                        </div>
-                        <div class="form-group">
-                            <input type="tel" id="phone" name="phone" placeholder="+234xxxxxxxxxx" required>
-                        </div>
-                        <div class="form-group">
-                            <input type="text" id="subject" name="subject" placeholder="Subject" required>
-                        </div>
-                        <div class="form-group">
-                            <textarea id="message" name="message" placeholder="Your Message" rows="5" required></textarea>
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label for="name">Full Name</label>
+                                <input type="text" id="name" name="name" placeholder="Your full name" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="email">Email</label>
+                                <input type="email" id="email" name="email" placeholder="you@example.com" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="phone">Phone</label>
+                                <input type="tel" id="phone" name="phone" placeholder="+234xxxxxxxxxx">
+                            </div>
+                            <div class="form-group">
+                                <label for="subject">Subject</label>
+                                <input type="text" id="subject" name="subject" placeholder="Subject" required>
+                            </div>
+                            <div class="form-group full-width">
+                                <label for="message">Message</label>
+                                <textarea id="message" name="message" placeholder="Your message" rows="5" required></textarea>
+                            </div>
                         </div>
                         
-                        
-                        <div id="form-status"></div>
-                        <button type="submit" id="submit-btn">Send Message</button>
+                        <div id="form-status" role="status" aria-live="polite"></div>
+                        <button type="submit" id="submit-btn" class="btn">Send Message</button>
                     </form>
                 </div>
             </div>
