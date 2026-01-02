@@ -158,8 +158,15 @@ function isValidEmail(email) {
 }
 
 function isValidPhone(phone) {
-    const phoneRegex = /^[\+]?[1-9][\d]{0,15}$/;
-    return phoneRegex.test(phone.replace(/[\s\-\(\)]/g, ''));
+    // Remove spaces, dashes and parentheses but keep leading plus if any
+    const cleaned = phone.replace(/[\s\-\(\)]/g, '');
+    // Accept local format: 0 followed by 10 digits (e.g., 08012345678)
+    const localRegex = /^0\d{10}$/;
+    // Accept Nigerian international format: +234 followed by 10 digits
+    const intlNaira = /^\+234\d{10}$/;
+    // Accept general E.164-like numbers as a fallback
+    const e164 = /^\+?[1-9]\d{7,14}$/;
+    return localRegex.test(cleaned) || intlNaira.test(cleaned) || e164.test(cleaned);
 }
 
 function showFormStatus(message, type) {
