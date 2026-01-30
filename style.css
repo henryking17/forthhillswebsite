@@ -13,7 +13,7 @@ nav {
   padding: 12px 18px;
   z-index: 999;
   box-shadow: 0 4px 12px rgba(0,0,0,0.08);
-  -webkit-animation: saturate(1.05) blur(4px);
+  backdrop-filter: saturate(1.05) blur(4px);
 }
 
 nav a {
