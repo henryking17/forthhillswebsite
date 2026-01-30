@@ -220,3 +220,39 @@ if (phoneInput) {
 
     window.addEventListener("scroll", revealOnScroll);
     revealOnScroll(); // initial check
+
+        // Carousel controls for each carousel-wrap (buttons, keyboard, and video play behaviour)
+        (function() {
+            document.querySelectorAll('.carousel-wrap').forEach(wrap => {
+                const carousel = wrap.querySelector('.carousel');
+                const prev = wrap.querySelector('.carousel-prev');
+                const next = wrap.querySelector('.carousel-next');
+                if (!carousel) return;
+
+                const scrollAmount = () => Math.round(carousel.clientWidth * 0.8);
+
+                prev && prev.addEventListener('click', () => {
+                    carousel.scrollBy({ left: -scrollAmount(), behavior: 'smooth' });
+                });
+
+                next && next.addEventListener('click', () => {
+                    carousel.scrollBy({ left: scrollAmount(), behavior: 'smooth' });
+                });
+
+                // Make items focusable for keyboard navigation
+                carousel.querySelectorAll('.carousel-item').forEach(item => item.setAttribute('tabindex', '0'));
+
+                // Allow arrow keys when carousel has focus
+                carousel.addEventListener('keydown', (e) => {
+                    if (e.key === 'ArrowRight') carousel.scrollBy({ left: scrollAmount(), behavior: 'smooth' });
+                    if (e.key === 'ArrowLeft') carousel.scrollBy({ left: -scrollAmount(), behavior: 'smooth' });
+                });
+
+                // Pause other videos when one plays
+                carousel.querySelectorAll('video').forEach(v => {
+                    v.addEventListener('play', () => {
+                        document.querySelectorAll('video').forEach(other => { if (other !== v) other.pause(); });
+                    });
+                });
+            });
+        })();
